@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Itinerary Preview</title>
+  <style>
+    /* 基本样式 */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      width: 210mm; /* A4 宽度 */
+      margin: 0 auto;
+      padding: 1cm;
+      box-sizing: border-box;
+    }
+    /* 顶部区域 */
+    .top-area {
+      position: relative;
+      height: 2cm;
+      border-bottom: 1px solid #ccc;
+    }
+    /* 右上角 logo 上传区域 */
+    .upload-logo {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 2cm;
+      height: 2cm;
+      border: 1px dashed #aaa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .upload-logo input[type="file"] {
+      display: none;
+    }
+    .upload-logo span {
+      font-size: 24px;
+      color: #aaa;
+    }
+    /* 标题样式 */
+    .title {
+      text-align: center;
+      font-size: 26px;
+      font-weight: bold;
+      margin-top: 0.5cm;
+    }
+    /* 表单区域 */
+    .section {
+      margin-top: 1cm;
+    }
+    .section-title {
+      margin-left: 4ch; /* 左侧空4个字符 */
+      font-size: 22px;
+      font-weight: bold;
+    }
+    .form-group {
+      margin: 0.5cm 0;
+    }
+    label {
+      display: inline-block;
+      width: 200px;
+    }
+    input[type="text"] {
+      width: 200px;
+      padding: 4px;
+    }
+    /* 预览区域样式 */
+    .preview {
+      border: 1px solid #000;
+      padding: 1cm;
+      margin-top: 1cm;
+    }
+    .preview .top-area {
+      height: 2cm;
+      position: relative;
+    }
+    /* 按钮样式 */
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 1cm;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 输入表单区域 -->
+    <div id="inputSection">
+      <div class="top-area">
+        <!-- logo 上传区域 -->
+        <div class="upload-logo" id="logoUpload">
+          <span>➕</span>
+          <input type="file" id="logoInput" accept="image/*">
+        </div>
+      </div>
+      <div class="title">ITINERARY PREVIEW</div>
+      
+      <!-- Departure 部分 -->
+      <div class="section" id="departureSection">
+        <div class="section-title">Departure</div>
+        <div class="form-group">
+          <label>Departure Date (MM/DD):</label>
+          <input type="text" id="departureDate" placeholder="MM/DD">
+        </div>
+        <div class="form-group">
+          <label>City:</label>
+          <input type="text" id="departureCity">
+        </div>
+        <div class="form-group">
+          <label>Airport:</label>
+          <input type="text" id="departureAirport">
+        </div>
+        <div class="form-group">
+          <label>Terminal:</label>
+          <input type="text" id="departureTerminal">
+        </div>
+        <div class="form-group">
+          <label>Flight:</label>
+          <input type="text" id="departureFlight">
+        </div>
+        <div class="form-group">
+          <label>Flight Time (HH:MM - HH:MM):</label>
+          <input type="text" id="departureFlightTime">
+        </div>
+        <div class="form-group">
+          <label>Flight Duration (in hours):</label>
+          <input type="text" id="departureDuration">
+        </div>
+        <div class="form-group">
+          <label>Arrival Info:</label>
+          <input type="text" id="arrivalInfo">
+        </div>
+      </div>
+      
+      <!-- Airport Pickup 部分 -->
+      <div class="section" id="pickupSection">
+        <div class="section-title">Airport Pickup</div>
+        <div class="form-group">
+          <label>Meeting Person:</label>
+          <input type="text" id="meetingPerson">
+        </div>
+        <div class="form-group">
+          <label>Vehicle Number:</label>
+          <input type="text" id="vehicleNumber">
+        </div>
+        <div class="form-group">
+          <label>Airport to Hotel Time (minutes):</label>
+          <input type="text" id="airportHotelTime">
+        </div>
+        <div class="form-group">
+          <label>Airport to Hotel Distance (km):</label>
+          <input type="text" id="airportHotelDistance">
+        </div>
+        <div class="form-group">
+          <label>Hotel to Venue Time (minutes):</label>
+          <input type="text" id="hotelVenueTime">
+        </div>
+        <div class="form-group">
+          <label>Hotel to Venue Distance (km):</label>
+          <input type="text" id="hotelVenueDistance">
+        </div>
+        <div class="form-group">
+          <label>Dinner Time:</label>
+          <input type="text" id="dinnerTime">
+        </div>
+      </div>
+      
+      <!-- Return Details 部分 -->
+      <div class="section" id="returnSection">
+        <div class="section-title">Return Details</div>
+        <div class="form-group">
+          <label>Meeting Date & Time:</label>
+          <input type="text" id="meetingDateTime">
+        </div>
+        <div class="form-group">
+          <label>Meeting Area:</label>
+          <input type="text" id="meetingArea">
+        </div>
+        <div class="form-group">
+          <label>Hotel to Airport Time (minutes):</label>
+          <input type="text" id="hotelAirportTime">
+        </div>
+        <div class="form-group">
+          <label>Hotel to Airport Distance (km):</label>
+          <input type="text" id="hotelAirportDistance">
+        </div>
+        <div class="form-group">
+          <label>Return Departure Date (MM/DD):</label>
+          <input type="text" id="returnDepartureDate" placeholder="MM/DD">
+        </div>
+        <!-- Return Departure Info -->
+        <div class="form-group">
+          <label>City:</label>
+          <input type="text" id="returnCity">
+        </div>
+        <div class="form-group">
+          <label>Airport:</label>
+          <input type="text" id="returnAirport">
+        </div>
+        <div class="form-group">
+          <label>Terminal:</label>
+          <input type="text" id="returnTerminal">
+        </div>
+        <div class="form-group">
+          <label>Flight:</label>
+          <input type="text" id="returnFlight">
+        </div>
+        <div class="form-group">
+          <label>Return Flight Time (HH:MM - HH:MM):</label>
+          <input type="text" id="returnFlightTime">
+        </div>
+        <div class="form-group">
+          <label>Return Flight Duration (in hours):</label>
+          <input type="text" id="returnDuration">
+        </div>
+        <div class="form-group">
+          <label>Return Arrival Info:</label>
+          <input type="text" id="returnArrivalInfo">
+        </div>
+      </div>
+      
+      <!-- 底部空2cm -->
+      <div style="height:2cm;"></div>
+      
+      <!-- 更新预览按钮 -->
+      <button class="button" id="updatePreviewBtn">Update Itinerary Preview</button>
+    </div>
+    
+    <!-- 分隔线 -->
+    <hr style="margin: 2cm 0;">
+    
+    <!-- 预览区域 -->
+    <div id="previewSection" class="preview">
+      <!-- 顶部 logo 区域 -->
+      <div class="top-area" id="previewLogoArea">
+        <!-- 上传的 logo 会在此显示 -->
+      </div>
+      <div class="title">ITINERARY PREVIEW</div>
+      
+      <!-- 预览：Departure -->
+      <div class="section" id="previewDeparture">
+        <div class="section-title">Departure</div>
+        <div id="previewDepartureContent"></div>
+      </div>
+      
+      <!-- 预览：Airport Pickup -->
+      <div class="section" id="previewPickup">
+        <div class="section-title">Airport Pickup</div>
+        <div id="previewPickupContent"></div>
+      </div>
+      
+      <!-- 预览：Return Details -->
+      <div class="section" id="previewReturn">
+        <div class="section-title">Return Details</div>
+        <div id="previewReturnContent"></div>
+      </div>
+      
+      <!-- 底部空2cm -->
+      <div style="height:2cm;"></div>
+      
+      <!-- 保存为图片按钮 -->
+      <button class="button" id="saveImageBtn">Save as Image</button>
+    </div>
+  </div>
+  
+  <!-- 引入 html2canvas 库 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script>
+    // 处理 logo 上传
+    const logoUpload = document.getElementById('logoUpload');
+    const logoInput = document.getElementById('logoInput');
+    const previewLogoArea = document.getElementById('previewLogoArea');
+    
+    logoUpload.addEventListener('click', () => {
+      logoInput.click();
+    });
+    
+    logoInput.addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          previewLogoArea.innerHTML = '<img src="' + e.target.result + '" style="max-width:100%; max-height:100%;">';
+        }
+        reader.readAsDataURL(file);
+      }
+    });
+    
+    // 更新预览区域内容
+    document.getElementById('updatePreviewBtn').addEventListener('click', function() {
+      // Departure 部分内容
+      const departureContent = `
+        Departure Date (MM/DD): ${document.getElementById('departureDate').value}<br>
+        City: ${document.getElementById('departureCity').value}<br>
+        Airport: ${document.getElementById('departureAirport').value}<br>
+        Terminal: ${document.getElementById('departureTerminal').value}<br>
+        Flight: ${document.getElementById('departureFlight').value}<br>
+        Flight Time (HH:MM - HH:MM): ${document.getElementById('departureFlightTime').value}<br>
+        Flight Duration (in hours): ${document.getElementById('departureDuration').value}<br>
+        Arrival Info: ${document.getElementById('arrivalInfo').value}
+      `;
+      document.getElementById('previewDepartureContent').innerHTML = departureContent;
+      
+      // Airport Pickup 部分内容
+      const pickupContent = `
+        Meeting Person: ${document.getElementById('meetingPerson').value}<br>
+        Vehicle Number: ${document.getElementById('vehicleNumber').value}<br>
+        Airport to Hotel Time (minutes): ${document.getElementById('airportHotelTime').value}<br>
+        Airport to Hotel Distance (km): ${document.getElementById('airportHotelDistance').value}<br>
+        Hotel to Venue Time (minutes): ${document.getElementById('hotelVenueTime').value}<br>
+        Hotel to Venue Distance (km): ${document.getElementById('hotelVenueDistance').value}<br>
+        Dinner Time: ${document.getElementById('dinnerTime').value}
+      `;
+      document.getElementById('previewPickupContent').innerHTML = pickupContent;
+      
+      // Return Details 部分内容
+      const returnContent = `
+        Meeting Date & Time: ${document.getElementById('meetingDateTime').value}<br>
+        Meeting Area: ${document.getElementById('meetingArea').value}<br>
+        Hotel to Airport Time (minutes): ${document.getElementById('hotelAirportTime').value}<br>
+        Hotel to Airport Distance (km): ${document.getElementById('hotelAirportDistance').value}<br>
+        Return Departure Date (MM/DD): ${document.getElementById('returnDepartureDate').value}<br>
+        City: ${document.getElementById('returnCity').value}<br>
+        Airport: ${document.getElementById('returnAirport').value}<br>
+        Terminal: ${document.getElementById('returnTerminal').value}<br>
+        Flight: ${document.getElementById('returnFlight').value}<br>
+        Return Flight Time (HH:MM - HH:MM): ${document.getElementById('returnFlightTime').value}<br>
+        Return Flight Duration (in hours): ${document.getElementById('returnDuration').value}<br>
+        Return Arrival Info: ${document.getElementById('returnArrivalInfo').value}
+      `;
+      document.getElementById('previewReturnContent').innerHTML = returnContent;
+    });
+    
+    // 保存预览区域为图片
+    document.getElementById('saveImageBtn').addEventListener('click', function() {
+      html2canvas(document.getElementById('previewSection')).then(function(canvas) {
+        // 限定图片宽度为 A4 尺寸 (210mm，转换成像素约为 210 * 3.78)
+        const a4Width = 210 * 3.78;
+        if(canvas.width > a4Width) {
+          const scale = a4Width / canvas.width;
+          const scaledCanvas = document.createElement("canvas");
+          scaledCanvas.width = a4Width;
+          scaledCanvas.height = canvas.height * scale;
+          const ctx = scaledCanvas.getContext("2d");
+          ctx.drawImage(canvas, 0, 0, scaledCanvas.width, scaledCanvas.height);
+          canvas = scaledCanvas;
+        }
+        // 创建下载链接
+        const link = document.createElement('a');
+        link.download = 'itinerary_preview.png';
+        link.href = canvas.toDataURL();
+        link.click();
+      });
+    });
+  </script>
+</body>
+</html>

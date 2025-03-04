@@ -143,7 +143,7 @@
         </div>
       </div>
       
-      <!-- Airport Pickup 部分 -->
+      <!-- Airport Pickup 部分（移除酒店至场馆及晚餐字段） -->
       <div class="section" id="pickupSection">
         <div class="section-title">Airport Pickup</div>
         <div class="form-group">
@@ -162,17 +162,38 @@
           <label>Airport to Hotel Distance (km):</label>
           <input type="text" id="airportHotelDistance">
         </div>
+      </div>
+      
+      <!-- Venue info 部分 -->
+      <div class="section" id="venueSection">
+        <div class="section-title">Venue info</div>
         <div class="form-group">
-          <label>Hotel to Venue Time (minutes):</label>
-          <input type="text" id="hotelVenueTime">
+          <label>Venue Name:</label>
+          <input type="text" id="venueName">
         </div>
         <div class="form-group">
-          <label>Hotel to Venue Distance (km):</label>
-          <input type="text" id="hotelVenueDistance">
+          <label>Venue Address:</label>
+          <input type="text" id="venueAddress">
+        </div>
+        <div class="form-group">
+          <label>Sound Check Time:</label>
+          <input type="text" id="soundCheckTime">
         </div>
         <div class="form-group">
           <label>Dinner Time:</label>
-          <input type="text" id="dinnerTime">
+          <input type="text" id="venueDinnerTime">
+        </div>
+        <div class="form-group">
+          <label>Show Time:</label>
+          <input type="text" id="showTime">
+        </div>
+        <div class="form-group">
+          <label>Hotel to Venue Time (minutes):</label>
+          <input type="text" id="venueHotelTime">
+        </div>
+        <div class="form-group">
+          <label>Hotel to Venue Distance (km):</label>
+          <input type="text" id="venueHotelDistance">
         </div>
       </div>
       
@@ -188,7 +209,7 @@
           <input type="text" id="meetingArea">
         </div>
         <div class="form-group">
-          <label>Hotel to Airport Time (minutes):</label>
+          <label>Hotel to Airport Time:</label>
           <input type="text" id="hotelAirportTime">
         </div>
         <div class="form-group">
@@ -240,38 +261,46 @@
     <!-- 分隔线 -->
     <hr style="margin: 2cm 0;">
     
-    <!-- 预览区域 -->
+    <!-- 预览区域，captureArea 为将要生成图片的部分 -->
     <div id="previewSection" class="preview">
-      <!-- 顶部 logo 区域 -->
-      <div class="top-area" id="previewLogoArea">
-        <!-- 上传的 logo 会在此显示 -->
+      <div id="captureArea">
+        <!-- 顶部 logo 区域 -->
+        <div class="top-area" id="previewLogoArea">
+          <!-- 上传的 logo 会在此显示 -->
+        </div>
+        <div class="title">ITINERARY PREVIEW</div>
+        
+        <!-- 预览：Departure -->
+        <div class="section" id="previewDeparture">
+          <div class="section-title">Departure</div>
+          <div id="previewDepartureContent"></div>
+        </div>
+        
+        <!-- 预览：Airport Pickup -->
+        <div class="section" id="previewPickup">
+          <div class="section-title">Airport Pickup</div>
+          <div id="previewPickupContent"></div>
+        </div>
+        
+        <!-- 预览：Venue info -->
+        <div class="section" id="previewVenue">
+          <div class="section-title">Venue info</div>
+          <div id="previewVenueContent"></div>
+        </div>
+        
+        <!-- 预览：Return Details -->
+        <div class="section" id="previewReturn">
+          <div class="section-title">Return Details</div>
+          <div id="previewReturnContent"></div>
+        </div>
+        
+        <!-- 底部空2cm -->
+        <div style="height:2cm;"></div>
       </div>
-      <div class="title">ITINERARY PREVIEW</div>
-      
-      <!-- 预览：Departure -->
-      <div class="section" id="previewDeparture">
-        <div class="section-title">Departure</div>
-        <div id="previewDepartureContent"></div>
-      </div>
-      
-      <!-- 预览：Airport Pickup -->
-      <div class="section" id="previewPickup">
-        <div class="section-title">Airport Pickup</div>
-        <div id="previewPickupContent"></div>
-      </div>
-      
-      <!-- 预览：Return Details -->
-      <div class="section" id="previewReturn">
-        <div class="section-title">Return Details</div>
-        <div id="previewReturnContent"></div>
-      </div>
-      
-      <!-- 底部空2cm -->
-      <div style="height:2cm;"></div>
-      
-      <!-- 保存为图片按钮 -->
-      <button class="button" id="saveImageBtn">Save as Image</button>
     </div>
+    
+    <!-- 保存为图片按钮（不在 captureArea 内） -->
+    <button class="button" id="saveImageBtn">Save as Image</button>
   </div>
   
   <!-- 引入 html2canvas 库 -->
@@ -317,18 +346,27 @@
         Meeting Person: ${document.getElementById('meetingPerson').value}<br>
         Vehicle Number: ${document.getElementById('vehicleNumber').value}<br>
         Airport to Hotel Time (minutes): ${document.getElementById('airportHotelTime').value}<br>
-        Airport to Hotel Distance (km): ${document.getElementById('airportHotelDistance').value}<br>
-        Hotel to Venue Time (minutes): ${document.getElementById('hotelVenueTime').value}<br>
-        Hotel to Venue Distance (km): ${document.getElementById('hotelVenueDistance').value}<br>
-        Dinner Time: ${document.getElementById('dinnerTime').value}
+        Airport to Hotel Distance (km): ${document.getElementById('airportHotelDistance').value}
       `;
       document.getElementById('previewPickupContent').innerHTML = pickupContent;
+      
+      // Venue info 部分内容
+      const venueContent = `
+        Venue Name: ${document.getElementById('venueName').value}<br>
+        Venue Address: ${document.getElementById('venueAddress').value}<br>
+        Sound Check Time: ${document.getElementById('soundCheckTime').value}<br>
+        Dinner Time: ${document.getElementById('venueDinnerTime').value}<br>
+        Show Time: ${document.getElementById('showTime').value}<br>
+        Hotel to Venue Time (minutes): ${document.getElementById('venueHotelTime').value}<br>
+        Hotel to Venue Distance (km): ${document.getElementById('venueHotelDistance').value}
+      `;
+      document.getElementById('previewVenueContent').innerHTML = venueContent;
       
       // Return Details 部分内容
       const returnContent = `
         Meeting Date & Time: ${document.getElementById('meetingDateTime').value}<br>
         Meeting Area: ${document.getElementById('meetingArea').value}<br>
-        Hotel to Airport Time (minutes): ${document.getElementById('hotelAirportTime').value}<br>
+        Hotel to Airport Time: ${document.getElementById('hotelAirportTime').value} (minutes)<br>
         Hotel to Airport Distance (km): ${document.getElementById('hotelAirportDistance').value}<br>
         Return Departure Date (MM/DD): ${document.getElementById('returnDepartureDate').value}<br>
         City: ${document.getElementById('returnCity').value}<br>
@@ -342,9 +380,9 @@
       document.getElementById('previewReturnContent').innerHTML = returnContent;
     });
     
-    // 保存预览区域为图片
+    // 保存预览区域为图片（仅捕捉 captureArea 部分，不包含按钮）
     document.getElementById('saveImageBtn').addEventListener('click', function() {
-      html2canvas(document.getElementById('previewSection')).then(function(canvas) {
+      html2canvas(document.getElementById('captureArea')).then(function(canvas) {
         // 限定图片宽度为 A4 尺寸 (210mm，转换成像素约为 210 * 3.78)
         const a4Width = 210 * 3.78;
         if(canvas.width > a4Width) {

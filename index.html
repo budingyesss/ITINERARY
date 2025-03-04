@@ -110,7 +110,7 @@
       <div class="section" id="departureSection">
         <div class="section-title">Departure</div>
         <div class="form-group">
-          <label>Departure Date (MM/DD):</label>
+          <label>Departure Date :</label>
           <input type="text" id="departureDate" placeholder="MM/DD">
         </div>
         <div class="form-group">
@@ -130,11 +130,11 @@
           <input type="text" id="departureFlight">
         </div>
         <div class="form-group">
-          <label>Flight Time (HH:MM - HH:MM):</label>
+          <label>Flight Time:</label>
           <input type="text" id="departureFlightTime">
         </div>
         <div class="form-group">
-          <label>Flight Duration (in hours):</label>
+          <label>Flight Duration:</label>
           <input type="text" id="departureDuration">
         </div>
         <div class="form-group">
@@ -143,7 +143,7 @@
         </div>
       </div>
       
-      <!-- Airport Pickup 部分（移除酒店至场馆及晚餐字段） -->
+      <!-- Airport Pickup 部分 -->
       <div class="section" id="pickupSection">
         <div class="section-title">Airport Pickup</div>
         <div class="form-group">
@@ -155,11 +155,19 @@
           <input type="text" id="vehicleNumber">
         </div>
         <div class="form-group">
-          <label>Airport to Hotel Time (minutes):</label>
+          <label>Hotel Name：</label>
+          <input type="text" id="hotelName">
+        </div>
+        <div class="form-group">
+          <label>Hotel address：</label>
+          <input type="text" id="hotelAddress">
+        </div>
+        <div class="form-group">
+          <label>Airport to Hotel Time :</label>
           <input type="text" id="airportHotelTime">
         </div>
         <div class="form-group">
-          <label>Airport to Hotel Distance (km):</label>
+          <label>Airport to Hotel Distance:</label>
           <input type="text" id="airportHotelDistance">
         </div>
       </div>
@@ -188,11 +196,11 @@
           <input type="text" id="showTime">
         </div>
         <div class="form-group">
-          <label>Hotel to Venue Time (minutes):</label>
+          <label>Hotel to Venue Time:</label>
           <input type="text" id="venueHotelTime">
         </div>
         <div class="form-group">
-          <label>Hotel to Venue Distance (km):</label>
+          <label>Hotel to Venue Distance:</label>
           <input type="text" id="venueHotelDistance">
         </div>
       </div>
@@ -213,11 +221,11 @@
           <input type="text" id="hotelAirportTime">
         </div>
         <div class="form-group">
-          <label>Hotel to Airport Distance (km):</label>
+          <label>Hotel to Airport Distance :</label>
           <input type="text" id="hotelAirportDistance">
         </div>
         <div class="form-group">
-          <label>Return Departure Date (MM/DD):</label>
+          <label>Return Departure Date:</label>
           <input type="text" id="returnDepartureDate" placeholder="MM/DD">
         </div>
         <!-- Return Departure Info -->
@@ -238,11 +246,11 @@
           <input type="text" id="returnFlight">
         </div>
         <div class="form-group">
-          <label>Return Flight Time (HH:MM - HH:MM):</label>
+          <label>Return Flight Time:</label>
           <input type="text" id="returnFlightTime">
         </div>
         <div class="form-group">
-          <label>Return Flight Duration (in hours):</label>
+          <label>Return Flight Duration:</label>
           <input type="text" id="returnDuration">
         </div>
         <div class="form-group">
@@ -330,13 +338,13 @@
     document.getElementById('updatePreviewBtn').addEventListener('click', function() {
       // Departure 部分内容
       const departureContent = `
-        Departure Date (MM/DD): ${document.getElementById('departureDate').value}<br>
+        Departure Date : ${document.getElementById('departureDate').value}<br>
         City: ${document.getElementById('departureCity').value}<br>
         Airport: ${document.getElementById('departureAirport').value}<br>
         Terminal: ${document.getElementById('departureTerminal').value}<br>
         Flight: ${document.getElementById('departureFlight').value}<br>
-        Flight Time (HH:MM - HH:MM): ${document.getElementById('departureFlightTime').value}<br>
-        Flight Duration (in hours): ${document.getElementById('departureDuration').value}<br>
+        Flight Time: ${document.getElementById('departureFlightTime').value}<br>
+        Flight Duration: ${document.getElementById('departureDuration').value}<br>
         Arrival Info: ${document.getElementById('arrivalInfo').value}
       `;
       document.getElementById('previewDepartureContent').innerHTML = departureContent;
@@ -345,8 +353,10 @@
       const pickupContent = `
         Meeting Person: ${document.getElementById('meetingPerson').value}<br>
         Vehicle Number: ${document.getElementById('vehicleNumber').value}<br>
-        Airport to Hotel Time (minutes): ${document.getElementById('airportHotelTime').value}<br>
-        Airport to Hotel Distance (km): ${document.getElementById('airportHotelDistance').value}
+        Hotel Name： ${document.getElementById('hotelName').value}<br>
+        Hotel address： ${document.getElementById('hotelAddress').value}<br>
+        Airport to Hotel Time : ${document.getElementById('airportHotelTime').value}<br>
+        Airport to Hotel Distance: ${document.getElementById('airportHotelDistance').value}
       `;
       document.getElementById('previewPickupContent').innerHTML = pickupContent;
       
@@ -357,8 +367,8 @@
         Sound Check Time: ${document.getElementById('soundCheckTime').value}<br>
         Dinner Time: ${document.getElementById('venueDinnerTime').value}<br>
         Show Time: ${document.getElementById('showTime').value}<br>
-        Hotel to Venue Time (minutes): ${document.getElementById('venueHotelTime').value}<br>
-        Hotel to Venue Distance (km): ${document.getElementById('venueHotelDistance').value}
+        Hotel to Venue Time: ${document.getElementById('venueHotelTime').value}<br>
+        Hotel to Venue Distance: ${document.getElementById('venueHotelDistance').value}
       `;
       document.getElementById('previewVenueContent').innerHTML = venueContent;
       
@@ -366,15 +376,15 @@
       const returnContent = `
         Meeting Date & Time: ${document.getElementById('meetingDateTime').value}<br>
         Meeting Area: ${document.getElementById('meetingArea').value}<br>
-        Hotel to Airport Time: ${document.getElementById('hotelAirportTime').value} (minutes)<br>
-        Hotel to Airport Distance (km): ${document.getElementById('hotelAirportDistance').value}<br>
-        Return Departure Date (MM/DD): ${document.getElementById('returnDepartureDate').value}<br>
+        Hotel to Airport Time: ${document.getElementById('hotelAirportTime').value}<br>
+        Hotel to Airport Distance : ${document.getElementById('hotelAirportDistance').value}<br>
+        Return Departure Date: ${document.getElementById('returnDepartureDate').value}<br>
         City: ${document.getElementById('returnCity').value}<br>
         Airport: ${document.getElementById('returnAirport').value}<br>
         Terminal: ${document.getElementById('returnTerminal').value}<br>
         Flight: ${document.getElementById('returnFlight').value}<br>
-        Return Flight Time (HH:MM - HH:MM): ${document.getElementById('returnFlightTime').value}<br>
-        Return Flight Duration (in hours): ${document.getElementById('returnDuration').value}<br>
+        Return Flight Time: ${document.getElementById('returnFlightTime').value}<br>
+        Return Flight Duration: ${document.getElementById('returnDuration').value}<br>
         Return Arrival Info: ${document.getElementById('returnArrivalInfo').value}
       `;
       document.getElementById('previewReturnContent').innerHTML = returnContent;

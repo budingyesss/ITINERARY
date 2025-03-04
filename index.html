@@ -392,7 +392,7 @@
     
     // 保存预览区域为图片（仅捕捉 captureArea 部分，不包含按钮），同时提高图片清晰度
     document.getElementById('saveImageBtn').addEventListener('click', function() {
-      html2canvas(document.getElementById('captureArea'), { scale: 2 }).then(function(canvas) {
+      html2canvas(document.getElementById('captureArea'), { scale: 4 }).then(function(canvas) {
         // 限定图片宽度为 A4 尺寸 (210mm，转换成像素约为 210 * 3.78)
         const a4Width = 210 * 3.78;
         if(canvas.width > a4Width) {
